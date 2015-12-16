@@ -7,6 +7,14 @@ public class Main {
                 "4436645361-YKCs94WpK6bbPrXeKxZBRbhiwNPPWqv91KR8Rzr", "OFrccO6cqsX0P31fP2MNjhZ7s3Dr6dJrEjwAQyXVf2Sb7",
                 "Rassus 16");
         twitter.connect();
-        twitter.run();
+        while (!twitter.isDone()) {
+            String msg = null;
+            try {
+                msg = twitter.getMessage();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(msg);
+        }
     }
 }

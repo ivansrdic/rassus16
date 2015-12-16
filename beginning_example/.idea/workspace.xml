@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6de5ae99-2c70-4336-b7bd-f0e5c2facf0c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/src/main/java/EchoWebSocket.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/src/main/java/HelloWorld.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/src/main/java/MessageSender.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/target/classes/EchoWebSocket.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/target/classes/HelloWorld.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../twitter_stream_server/target/classes/MessageSender.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../twitter_stream_server/.idea/misc.xml" afterPath="$PROJECT_DIR$/../twitter_stream_server/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../twitter_stream_server/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../twitter_stream_server/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../twitter_stream_server/pom.xml" afterPath="$PROJECT_DIR$/../twitter_stream_server/pom.xml" />
     </list>
     <ignored path="twitter_stream_server.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -630,12 +622,12 @@
       <workItem from="1450043784225" duration="599000" />
       <workItem from="1450256180320" duration="309000" />
       <workItem from="1450296829157" duration="347000" />
-      <workItem from="1450297478953" duration="1653000" />
+      <workItem from="1450297478953" duration="1916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12310000" />
+    <option name="totallyTimeSpent" value="12573000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-175" y="-1088" width="1936" height="1056" extended-state="6" />
