@@ -26,10 +26,7 @@ public class StreamingWebSocket {
         // First message is the request token
         Token accessToken = Main.accessTokens.get(message);
         RemoteEndpoint remote = session.getRemote();
-        TwitterHBC twitter = new TwitterHBC("St66y6VZapKDx5j08cfRTn6JA", "wdQNykEmXR5vVHJpWdI4jVN5CPz0sPCjSWeuUeG9CtHpyiLAGk",
-                                                accessToken.getToken(), accessToken.getSecret(),
-                                                "Rassus 16");
-        twitter.connect();
+        TwitterHBC twitter = TwitterHBC.getConnection(accessToken);
         while (!twitter.isDone()) {
             String msg = null;
             try {

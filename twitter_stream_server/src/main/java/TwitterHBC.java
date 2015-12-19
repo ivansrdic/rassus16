@@ -1,3 +1,4 @@
+import com.github.scribejava.core.model.Token;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;
@@ -92,5 +93,13 @@ public class TwitterHBC {
      */
     public String getMessage() throws InterruptedException {
         return this.msgQueue.take();
+    }
+
+    public static TwitterHBC getConnection(Token accessToken) {
+        TwitterHBC twitter = new TwitterHBC("St66y6VZapKDx5j08cfRTn6JA", "wdQNykEmXR5vVHJpWdI4jVN5CPz0sPCjSWeuUeG9CtHpyiLAGk",
+                accessToken.getToken(), accessToken.getSecret(),
+                "Rassus 16");
+        twitter.connect();
+        return twitter;
     }
 }
