@@ -1,0 +1,71 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/common/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/common/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/common/src/tools/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/icu/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/icu/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/icu/src/tools/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/kuromoji/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/kuromoji/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/kuromoji/src/tools/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/kuromoji/src/tools/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/morfologik/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/morfologik/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/phonetic/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/phonetic/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/smartcn/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/smartcn/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/stempel/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/stempel/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/uima/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/analysis/uima/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/backward-codecs/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/backward-codecs/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/benchmark/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/benchmark/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/classification/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/classification/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/codecs/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/codecs/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/core/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/core/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/demo/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/demo/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/expressions/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/expressions/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/facet/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/facet/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/grouping/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/grouping/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/highlighter/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/highlighter/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/join/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/join/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/memory/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/memory/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/misc/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/misc/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/queries/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/queries/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/queryparser/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/queryparser/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/replicator/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/replicator/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/sandbox/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/sandbox/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/spatial/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/spatial/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/spatial3d/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/spatial3d/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/suggest/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/suggest/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/test-framework/src/java" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/test-framework/src/test" />
+      <root url="file://$PROJECT_DIR$/../lucene-5.4.0/tools/src/java" />
+    </SOURCES>
+  </library>
+</component>
