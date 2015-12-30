@@ -2,8 +2,11 @@ import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuthService;
+import lucene.Lucene;
+import lucene.Tweet;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -13,6 +16,7 @@ import static spark.Spark.*;
  */
 public class Main {
     public static Map<String, Token> accessTokens;
+
     public static void main (String[] args) {
         accessTokens = new HashMap<>();
         // Create an OAuth service using ScribeJava using app key and secret and a callback after authenticating on Twitter
@@ -58,5 +62,47 @@ public class Main {
             resp.redirect("http://127.0.0.1/RASSUS/rassus16/public_html/stream.html");
             return "";
         });
+    }
+
+
+
+    private void testLucene(){
+        Lucene lucene = new Lucene();
+
+
+        Tweet tweet = new Tweet();
+        tweet.setText("moja mama je dobra");
+        tweet.setDate("jucer");
+        tweet.setAuthor("inglesias");
+
+        HashMap<String, List<Tweet>> changes= lucene.addQuery("mama");
+
+        HashMap<String, List<Tweet>> changes2= lucene.addNewTweet(tweet);
+
+
+        Tweet tweet2 = new Tweet();
+        tweet2.setText("moj tata je dobar");
+        tweet2.setDate("jucer");
+        tweet2.setAuthor("inglesias");
+
+        HashMap<String, List<Tweet>> changes3= lucene.addNewTweet(tweet2);
+
+        Tweet tweet3 = new Tweet();
+        tweet3.setText("mama ima pivo");
+        tweet3.setDate("jucefafasr");
+        tweet3.setAuthor("inglesddfasfias");
+
+        HashMap<String, List<Tweet>> changes4= lucene.addNewTweet(tweet3);
+
+        HashMap<String, List<Tweet>> changes5= lucene.addQuery("tata");
+
+        Tweet tweet4 = new Tweet();
+        tweet4.setText("mama i tata pjevaju");
+        tweet4.setDate("jucefafasr");
+        tweet4.setAuthor("inglesddfasfias");
+
+        HashMap<String, List<Tweet>> changes6= lucene.addNewTweet(tweet4);
+
+        return;
     }
 }

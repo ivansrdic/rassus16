@@ -30,4 +30,11 @@ public class Tweet {
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    public boolean equals(Tweet tweet){
+        return (this.getAuthor().equals(tweet.getAuthor()) &&
+                this.getText().equals(tweet.getText()) &&
+                this.getDate().equals(tweet.getDate()));
+    }
 }
