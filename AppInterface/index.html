@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+    <title>TweetYouAreLookingFor</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+	
+
+
+	<div class="fullscreen-bg">
+		 <video preload="auto" autoplay loop muted class="fullscreen-bg__video">
+		       <source type="video/mp4" src="img/videoloop.mp4" />
+		       <source type="video/ogg" src="img/videoloop.ogv" />
+		       <source type="video/webm" src="img/videoloop.webm" />
+		 </video>
+    </div> 
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">@TweetYouAreLookingFor</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li> 
+                     <li>
+                     	<a class="page-scroll" href="#loginForm" data-toggle="modal" data-target="#loginForm">Log In</a> 
+                        <!--<button type="button" class="btn btn-info btn-lg" style="margin-top:3px" data-toggle="modal" data-target="#loginForm">Login</button>-->                      
+                    </li> 
+                </ul>
+
+					
+				</div>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="header-content">
+         
+            <div class="header-content-inner">
+                <h1>Tweetovi nikada nisu bili zanimljiviji!</h1>
+                <hr>
+                <p>Želite tweetove koji vas zanimaju na ovom ekranu? Došli ste na pravo mjesto.</p>
+                <a href="#searchForm" data-toggle="modal" data-target="#searchForm" class="btn btn-primary btn-xl page-scroll">Pokreni!</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Što je @tweetyouarelookingfor?</h2>
+                    <hr class="light">
+                    <p class="text-faded"><i>@tweetyouarelookingfor</i> je aplikacija izrađena u sklopu laboratorija profila na 4. godini Fakulteta elektrotehnike i računarstva. Aplikacija funkcionira tako da korisnik unese svoj upit kojim govori koji tweetovi ga zanimaju. Aplikacija će na taj način korisniku uspješno prikazati tweetove isključivo iz njegovog područja interesa, ni više, ni manje!</p>                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class ="modal fade" id="loginForm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label=""><span>&times;</span></button>
+					<h4 class="modal-title">Log In</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form horizontal">
+						<div class="form-group">
+							<label class="col-md-4 col-md-offset-1">Korisničko ime:</label>
+							<div class="col-md-5">
+								<input type="text" class="form-control input-sm">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group">
+							<label class="col-md-4 col-md-offset-1">Lozinka:</label>
+							<div class="col-md-5">
+								<input type="password" class="form-control input-sm">
+							</div>
+						</div>
+						<br>
+						<br>
+						<div class="form-group">										
+							<div class="col-md-2 col-md-offset-8">
+								<input type="submit" class="btn btn-success" style="background-color:#00a2cc" value="submit">
+							</div>
+						</div>
+						<br>
+						<br>
+
+					</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
+     <div class ="modal fade" id="searchForm" style="margin-top:20px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label=""><span>&times;</span></button>
+                    <h4 class="modal-title">Pretraga:</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form horizontal">
+                        <div class="form-group">
+                            <label class="col-md-4 col-md-offset-1">Upit:</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control input-sm">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <label class="col-md-4 col-md-offset-1">Rezultat:</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control input-sm">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group">                                        
+                            <div class="col-md-2 col-md-offset-8">
+                                <input type="submit" class="btn btn-success" style="background-color:#00a2cc" value="Pretraži!">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+
+                    </form>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+				
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+ 
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>
