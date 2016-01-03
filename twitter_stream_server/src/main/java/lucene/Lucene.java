@@ -46,6 +46,10 @@ public class Lucene {
         analyzer = new StandardAnalyzer();
         index = new RAMDirectory();
     }
+    
+    public HashMap<String, List<Tweet>> getTopTweets(){
+    	return topTweets;
+    }
 
 
     public HashMap<String, List<Tweet>> addNewTweet(Tweet tweet){      //hashmap of query, list of tweets

@@ -2,13 +2,15 @@ import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.*;
 import com.github.scribejava.core.oauth.OAuthService;
-import lucene.Lucene;
-import lucene.Tweet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import spark.Spark;
+import lucene.Lucene;
+import lucene.Tweet;
 import static spark.Spark.*;
 
 /**
@@ -16,20 +18,27 @@ import static spark.Spark.*;
  */
 public class Main {
     public static Map<String, Token> accessTokens;
-
+    
     public static void main (String[] args) {
+    	staticFileLocation("/public_html");
         accessTokens = new HashMap<>();
         // Create an OAuth service using ScribeJava using app key and secret and a callback after authenticating on Twitter
         OAuthService service = new ServiceBuilder()
                 .provider(TwitterApi.class)
                 .apiKey("St66y6VZapKDx5j08cfRTn6JA")
                 .apiSecret("wdQNykEmXR5vVHJpWdI4jVN5CPz0sPCjSWeuUeG9CtHpyiLAGk")
-                .callback("http://127.0.0.1:4567/confirmAuth")
+                .callback("http://localhost:4567/confirmAuth")
                 .build();
 
         // Initialize a web socket server
         webSocket("/stream", StreamingWebSocket.class);
-
+        webSocketIdleTimeoutMillis(Integer.MAX_VALUE);
+        
+        get("/", (req, resp) -> {
+        	resp.redirect("/auth");   //Javascript redirect in index.html somehow removes cookies
+        	return null;
+        });
+        
         // Permit JavaScript redirection
         before("/auth", (req, resp) -> resp.header("Access-Control-Allow-Origin", "*"));
         // First step of authorization
@@ -37,7 +46,9 @@ public class Main {
             // If a user has a requestToken cookie, and the requestToken is a valid key, just redirect him to the stream
             if(req.cookie("requestToken") != null && accessTokens.containsKey(req.cookie("requestToken"))) {
                 resp.cookie("requestToken", req.cookie("requestToken"));
-                resp.redirect("http://127.0.0.1/RASSUS/rassus16/public_html/stream.html");
+                
+                //resp.redirect("http://127.0.0.1/RASSUS/rassus16/public_html/stream.html");
+                resp.redirect("stream.html");
                 return "";
             }
             // If he doesn't get a new request token and redirect him to Twitter to log in and authorize the app
@@ -52,6 +63,7 @@ public class Main {
         // Second step of authorization
         get("/confirmAuth", (req, resp) -> {
             Token requestToken = req.session().attribute("requestToken");
+        	
             Verifier v = new Verifier(req.queryParams("oauth_verifier"));
             // Get the access token by using the request token and verifier (from Twitter)
             Token accessToken = service.getAccessToken(requestToken, v);
@@ -59,13 +71,14 @@ public class Main {
             accessTokens.put(requestToken.getToken(), accessToken);
             // Redirect the user to the stream with requestToken cookie
             resp.cookie("requestToken", requestToken.getToken());
-            resp.redirect("http://127.0.0.1/RASSUS/rassus16/public_html/stream.html");
+            
+            //resp.redirect("http://127.0.0.1/RASSUS/rassus16/public_html/stream.html");
+            resp.redirect("stream.html");
             return "";
         });
     }
-
-
-
+    
+    
     private void testLucene(){
         Lucene lucene = new Lucene();
 

@@ -22,7 +22,14 @@ public class StreamingWebSocket implements StreamUpdateListener{
     @OnWebSocketClose
     public void closed(Session session, int statusCode, String reason) {
     	unindentified_users.remove(session);
-        sessions.remove(session);
+    	User user = null;
+    	for(Map.Entry<User, Session> row : sessions.entrySet()){
+			if(row.getValue().equals(session)){
+				user = row.getKey();
+				break;
+			}
+		}
+    	sessions.remove(user);
     }
 
     @OnWebSocketMessage
@@ -36,11 +43,21 @@ public class StreamingWebSocket implements StreamUpdateListener{
         		threads.put(user, thread);
         		new Thread(thread).start();
     		} else{
-    			session.getRemote().sendString(threads.get(user).getMessages());
+    			String msg = threads.get(user).getMessages();
+    			if(msg!=null){
+					onStreamUpdate(user, msg);
+				}
     		}
     		unindentified_users.remove(session);
     	}else{
-    		//if session is identified, then messages are new queries...
+    		for(Map.Entry<User, Session> row : sessions.entrySet()){
+    			if(row.getValue().equals(session)){
+    				String msg = threads.get(row.getKey()).addQuery(message);
+    				if(msg!=null){
+    					onStreamUpdate(row.getKey(), msg);
+    				}
+    			}
+    		}
     	}
     }
 
@@ -48,7 +65,7 @@ public class StreamingWebSocket implements StreamUpdateListener{
 	public void onStreamUpdate(User user, String message) {
 		try {
 			Session session = sessions.get(user);
-			if(session == null)  //client is disconnected
+			if(session==null || !session.isOpen())  //client is disconnected
 				return;
 			session.getRemote().sendString(message);
 		} catch (IOException e) {
