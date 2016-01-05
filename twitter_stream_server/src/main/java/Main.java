@@ -20,7 +20,7 @@ public class Main {
     public static Map<String, Token> accessTokens;
     
     public static void main (String[] args) {
-    	staticFileLocation("/public_html");
+        externalStaticFileLocation(System.getProperty("user.dir") + "/public_html");
         accessTokens = new HashMap<>();
         // Create an OAuth service using ScribeJava using app key and secret and a callback after authenticating on Twitter
         OAuthService service = new ServiceBuilder()
