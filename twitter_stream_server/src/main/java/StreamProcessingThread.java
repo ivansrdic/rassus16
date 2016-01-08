@@ -28,7 +28,15 @@ public class StreamProcessingThread implements Runnable {
 		
 		Calendar four_am = Calendar.getInstance();
 		four_am.set(Calendar.HOUR_OF_DAY, 4);
-		timer.scheduleAtFixedRate(reset_tweets, Math.abs(new Date().getTime() - four_am.getTimeInMillis()), 24 * 60 * 60 * 1000);
+		Date now = new Date();
+		long delay = 0;
+		if(now.getTime()>four_am.getTimeInMillis()){
+			delay = 24 * 60 * 60 * 1000 - (now.getTime() - four_am.getTimeInMillis());
+		}
+		else{
+			delay = four_am.getTimeInMillis() - now.getTime();
+		}
+		timer.scheduleAtFixedRate(reset_tweets, delay, 24 * 60 * 60 * 1000);
 	}
 	
 	@Override
