@@ -79,7 +79,7 @@ public class Main {
     }
     
     
-    private void testLucene(){
+    private static void testLucene(){
         Lucene lucene = new Lucene();
 
 
@@ -114,6 +114,7 @@ public class Main {
         tweet4.setDate("jucefafasr");
         tweet4.setAuthor("inglesddfasfias");
 
+        lucene.resetTweets();
         HashMap<String, List<Tweet>> changes6= lucene.addNewTweet(tweet4);
 
         return;

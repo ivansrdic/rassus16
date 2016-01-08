@@ -51,6 +51,10 @@ public class Lucene {
     	return topTweets;
     }
 
+    public void resetTweets(){
+        index = new RAMDirectory();
+    }
+
 
     public HashMap<String, List<Tweet>> addNewTweet(Tweet tweet){      //hashmap of query, list of tweets
         try{
@@ -126,9 +130,6 @@ public class Lucene {
 
     }
 
-    public void removeQuery(){
-
-    }
 
     private HashMap<String, List<Tweet>> search(){          //return changes, populate top tweets
 
