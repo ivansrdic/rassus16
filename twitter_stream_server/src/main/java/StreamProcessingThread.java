@@ -1,7 +1,11 @@
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,10 +20,15 @@ public class StreamProcessingThread implements Runnable {
 	private User owner;
 	private StreamUpdateListener client;
 	private Lucene lucene = new Lucene();
+	private Timer timer = new Timer();
 	
 	public StreamProcessingThread(User user, StreamUpdateListener client){
 		this.owner = user;
 		this.client = client;
+		
+		Calendar four_am = Calendar.getInstance();
+		four_am.set(Calendar.HOUR_OF_DAY, 4);
+		timer.scheduleAtFixedRate(reset_tweets, Math.abs(new Date().getTime() - four_am.getTimeInMillis()), 24 * 60 * 60 * 1000);
 	}
 	
 	@Override
@@ -69,7 +78,7 @@ public class StreamProcessingThread implements Runnable {
 		return null;
 	}
 	
-	public String mapToJSON(Map<String, List<Tweet>> data) throws JSONException{
+	private String mapToJSON(Map<String, List<Tweet>> data) throws JSONException{
 		JSONObject main = new JSONObject();
 		for(Map.Entry<String, List<Tweet>> row : data.entrySet()){
 			JSONArray tweets = new JSONArray();
@@ -84,5 +93,14 @@ public class StreamProcessingThread implements Runnable {
 		}
 		return main.toString();
 	}
+	
+	TimerTask reset_tweets = new TimerTask(){
+		
+		@Override
+		public void run() {
+			lucene.resetTweets();
+		}
+		
+	};
 
 }
