@@ -91,7 +91,7 @@ p{
 				var dataCopy = data[event];
 				//window.alert(JSON.stringify(dataCopy));
 				var queryDiv=document.getElementById(event);
-				queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b>"+event+"</b></br></br>";
+				queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b style=\"color:yellow;\">"+event+"</b></br></br>";
 					
 				var i=0;
 				for(key in dataCopy){
@@ -101,7 +101,7 @@ p{
 					tvitovi.push(tvit);
 					var autor=dataCopy[i].author;
 					var datum=dataCopy[i].date;
-					queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"     "+"   Tweet: "+tvit+"      "+"   Datum: "+datum+"</br>";
+					queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:yellow;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"  <b> Tweet:</b> &nbsp<b style=\"color:yellow;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
 					i=i+1;
 							 
 				}
@@ -121,7 +121,7 @@ p{
 			queryDiv.id = event;
 			queryDiv.className = 'block';
 			document.getElementsByTagName('body')[0].appendChild(queryDiv);
-			queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b>"+event+"</b></br></br>";
+			queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b style=\"color:yellow;\">"+event+"</b></br></br>";
 						
 			
 			var i=0;
@@ -132,7 +132,7 @@ p{
 				tvitovi.push(tvit);
 				var autor=dataCopy[i].author;
 				var datum=dataCopy[i].date;
-				queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"     "+"   Tweet: "+tvit+"      "+"   Datum: "+datum+"</br>";
+				queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:yellow;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"<b>Tweet:</b> &nbsp<b style=\"color:yellow;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
 				i=i+1;
 							 
 			}
@@ -174,4 +174,6 @@ function OpenInNewTab() {
   win.focus();
 }
 </script>
+
+
 </html>
