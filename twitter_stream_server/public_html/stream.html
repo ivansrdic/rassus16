@@ -4,35 +4,145 @@
 	<link rel='shortcut icon' href='favicon.ico' />
 	<title>Test 2</title>
 </head>
+<style>
+ body {
+	background-color:black;
+ }
+ #query{
+  color:blue;
+  font-size:20px;
+  width:400px;
+  height:30px;
+  
+ }
+ #submit{
+  background-color:blue;
+  widith:60px;
+  height:40px;
+  color:red;
+  font-size:16px;
+ }
+p{
+ color:white;
+ font-size:20px;
+}
+.block{
+ color:white;
+ background-color:red;
+ margin:20px;
+ font-size:20px;
+}
+ 
+</style>
 <body>
 	<div class="container">
+		
+		<p>Search for new tweets by given query</p>
+		<textarea id="query"></textarea>
+		<button id="submit" onclick="send()">Send</button>
+		<p id="demo"></p>
 		<div class="col-sm-12">
 			<ul id="list" class="list-group">
 
 			</ul>	
 		</div>
-		<p>New query</p>
-		<textarea id="query"></textarea>
-		<button id="submit" onclick="send()">Send</button>
+		
 	</div>
+	
 </body>
+
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script>
 	var list = document.getElementById("list");
+	var allQueries = [];//ideja je da se pamte upiti i svaki upit je ujedno i id za taj query 
+	var tvitovi=[];
 
 	var webSocket = new WebSocket("ws://" + location.hostname + ":4567/stream/");
 	webSocket.onopen = function () {
 		webSocket.send(getCookie("requestToken"));
 	};
 	webSocket.onmessage = function (msg) {
-		var listElement = document.createElement("LI");
-		listElement.className = "list-group-item";
-		listElement.appendChild(document.createTextNode(msg.data));
-		list.appendChild(listElement);
+	    
+		//window.alert("tu smo");
+		//var listElement = document.createElement("LI");
+		//listElement.className = "list-group-item";
+		//listElement.appendChild(document.createTextNode(msg.data));
+		//list.appendChild(listElement);
 		console.log(msg);
+		var data=JSON.parse(msg.data);
+		//window.alert(data[0].text);
+		//arr = [];
+		//var pridosliTvitovi=[];
+		
+		for(var event in data){
+			
+			//window.alert(event); // to je naziv upita
+			//provjeriti dali event već postoji u listi evenata
+			var remember = 0;
+			//window.alert(allQueries.length);
+			for(p=0;p<allQueries.length;p++){
+			  
+			  if(allQueries[p]==event) remember=1;
+			}
+		 if(remember==1) {
+				//window.alert("yeaaah");
+				//window.alert(tvitovi);
+				var dataCopy = data[event];
+				//window.alert(JSON.stringify(dataCopy));
+				var queryDiv=document.getElementById(event);
+				queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b>"+event+"</b></br></br>";
+					
+				var i=0;
+				for(key in dataCopy){
+					//if(key=="text"){		
+					//window.alert(dataCopy[i].text);
+					var tvit=dataCopy[i].text;
+					tvitovi.push(tvit);
+					var autor=dataCopy[i].author;
+					var datum=dataCopy[i].date;
+					queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"     "+"   Tweet: "+tvit+"      "+"   Datum: "+datum+"</br>";
+					i=i+1;
+							 
+				}
+					
+				
+				//queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"  "+"Tweet: "+tvit+"   "+"Datum: "+datum+"</br>";
+				
+			}
+		 else{
+			allQueries.push(event);
+			document.getElementById("demo").innerHTML = "Svi upiti :"+allQueries;	
+			var dataCopy = data[event];
+			//window.alert(JSON.stringify(dataCopy));
+			//window.alert(dataCopy[0].text);
+			
+			var queryDiv = document.createElement('div');
+			queryDiv.id = event;
+			queryDiv.className = 'block';
+			document.getElementsByTagName('body')[0].appendChild(queryDiv);
+			queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b>"+event+"</b></br></br>";
+						
+			
+			var i=0;
+			for(key in dataCopy){
+			 //if(key=="text"){		
+				//window.alert(dataCopy[i].text);
+				var tvit=dataCopy[i].text;
+				tvitovi.push(tvit);
+				var autor=dataCopy[i].author;
+				var datum=dataCopy[i].date;
+				queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"     "+"   Tweet: "+tvit+"      "+"   Datum: "+datum+"</br>";
+				i=i+1;
+							 
+			}
+		 }		
+			
+		}
+		
 	};
-	webSocket.onclose = function () { alert("WebSocket connection closed") };
+	
+  webSocket.onclose = function () { alert("WebSocket connection closed") };
 
 function getCookie(name) {
 	var value = "; " + document.cookie;
@@ -41,12 +151,27 @@ function getCookie(name) {
 }
 
 function send(){
+	var sameQuery=0;
 	var text = document.getElementById("query").value;
 	if(text!=''){
 		console.log("sending text");
-		webSocket.send(text);
+		
+	
+		//window.alert("allQueries elements: "+allQueries+"  "+"tekst: "+text);
+		if (allQueries.indexOf(text) > -1){
+				sameQuery=1;
+				//window.alert("tu smo");
+				}
+		
+		if(sameQuery==0) webSocket.send(text);
+		else window.alert("Given query already exists");
 		document.getElementById("query").value='';
 	}
+}
+
+function OpenInNewTab() {
+  var win = window.open("query_stream.html", '_blank');
+  win.focus();
 }
 </script>
 </html>
