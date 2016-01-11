@@ -1,13 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<link rel='shortcut icon' href='favicon.ico' />
-	<title>Test 2</title>
+	 <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+    <title>TweetYouAreLookingFor - Stream</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <style>
- body {
-	background-color:black;
- }
+
  #query{
   color:blue;
   font-size:20px;
@@ -15,28 +43,240 @@
   height:30px;
   
  }
- #submit{
-  background-color:blue;
-  widith:60px;
-  height:40px;
-  color:red;
-  font-size:16px;
- }
+
 p{
  color:white;
  font-size:20px;
 }
 .block{
- color:white;
- background-color:red;
- margin:20px;
- font-size:20px;
+	background-color:rgba(255, 255, 255, .8);
+	width:820px;
+	height: 30%;
+	margin-left: 325px;
+	margin-right: auto;
+	margin-bottom: 10px;
+	font-family: sans-serif;
+	text-align: left;
+	font-size:20px;
+	/*float:center;*/
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 30px;
+
+	border-radius: 20px;
+	border-color: #428BCA;
+	border-width:5px;
+	border-style: solid;
+	position: relative;
 }
+
  
 </style>
-<body>
-	<div class="container">
-		
+<body id="page-top">
+	<div class="fullscreen-bg">
+		 <video preload="auto" autoplay loop muted class="fullscreen-bg__video">
+		       <source type="video/mp4" src="img/videoloop.mp4" />
+		       <source type="video/ogg" src="img/videoloop.ogv" />
+		       <source type="video/webm" src="img/videoloop.webm" />
+		 </video>
+    </div> 
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html">@TweetYouAreLookingFor</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li> 
+                     <li>
+                        <a class="page-scroll" href="http://www.fer.unizg.hr/">FER.HR</a>
+                     	<!--<a class="page-scroll" href="#loginForm" data-toggle="modal" data-target="#loginForm">Log In</a>--> 
+                        <!--<button type="button" class="btn btn-info btn-lg" style="margin-top:3px" data-toggle="modal" data-target="#loginForm">Login</button>-->                      
+                    </li> 
+                    <li>
+                    	<button type="button" id="logout" class="btn btn-info btn-lg" style="margin-top:3px">Log Out</button>
+                    </li>
+                </ul>
+
+					
+				</div>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+     <header>
+        <div class="header-content">
+         
+            <div id="header-content-inner">
+                <h1>Recite što vas zanima!</h1>
+                <br>
+              
+				<input type="text" id="query">
+				<button id="submit" onclick="send() " class="btn btn-primary btn-xl page-scroll">Pošalji</button>
+				<p id="demo"></p>
+				<div class="col-sm-12">
+					<ul id="list" class="list-group">
+
+					</ul>
+					<div id="results">
+					</div>
+					<script>
+					var list = document.getElementById("list");
+					var allQueries = [];//ideja je da se pamte upiti i svaki upit je ujedno i id za taj query 
+					var tvitovi=[];
+					
+					 document.getElementById("logout").onclick = function () {
+					    LogOut();
+						
+						window.open(
+							'https://twitter.com/logout',
+							'_blank' 
+							);
+						location.href = "index.html";
+					};
+					
+					var webSocket = new WebSocket("ws://" + location.hostname + ":4567/stream/");
+					webSocket.onopen = function () {
+						webSocket.send(getCookie("requestToken"));
+					};
+					webSocket.onmessage = function (msg) {
+					    
+						
+						//list.appendChild(listElement);
+						console.log(msg);
+						var data=JSON.parse(msg.data);
+						//window.alert(data[0].text);
+						//arr = [];
+						//var pridosliTvitovi=[];
+						
+						for(var event in data){
+							
+							//window.alert(event); // to je naziv upita
+							//provjeriti dali event već postoji u listi evenata
+							var remember = 0;
+							//window.alert(allQueries.length);
+							for(p=0;p<allQueries.length;p++){
+							  
+							  if(allQueries[p]==event) remember=1;
+							}
+						 if(remember==1) {
+								//window.alert("yeaaah");
+								//window.alert(tvitovi);
+								var dataCopy = data[event];
+								//window.alert(JSON.stringify(dataCopy));
+								var queryDiv=document.getElementById(event);
+								queryDiv.innerHTML="<span style=\"color:black;\">Ovdje se prati tijek tweetova za upit:</span> <b style=\"color:#00a2cc;\">"+event+"</b></br></br>";
+									
+								var i=0;
+								for(key in dataCopy){
+									//if(key=="text"){		
+									//window.alert(dataCopy[i].text);
+									var tvit=dataCopy[i].text;
+									tvitovi.push(tvit);
+									var autor=dataCopy[i].author;
+									var datum=dataCopy[i].date;
+									queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:#00a2cc;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"  <b> Tweet:</b> &nbsp<b style=\"color:#00a2cc;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
+									i=i+1;
+											 
+								}
+									
+								
+								//queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"  "+"Tweet: "+tvit+"   "+"Datum: "+datum+"</br>";
+								
+							}
+						 else{
+							allQueries.push(event);
+							document.getElementById("demo").innerHTML = "Svi upiti :"+allQueries;	
+							var dataCopy = data[event];
+							//window.alert(JSON.stringify(dataCopy));
+							//window.alert(dataCopy[0].text);
+							
+							var queryDiv = document.createElement('div');
+							queryDiv.id = event;
+							queryDiv.className = 'block';
+							document.getElementById("results").insertBefore(queryDiv, document.getElementById("results").firstChild);
+							
+							queryDiv.innerHTML="<span style=\"color:black;\">Ovdje se prati tijek tweetova za upit:</span> <b style=\"color:#00a2cc;\">"+event+"</b></br></br>";
+										
+							
+							var i=0;
+							for(key in dataCopy){
+							 //if(key=="text"){		
+								//window.alert(dataCopy[i].text);
+								var tvit=dataCopy[i].text;
+								tvitovi.push(tvit);
+								var autor=dataCopy[i].author;
+								var datum=dataCopy[i].date;
+								queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:#00a2cc;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"<b>Tweet:</b> &nbsp<b style=\"color:#00a2cc;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
+								i=i+1;
+											 
+							}
+						 }		
+							
+						}
+						
+					};
+					
+				  webSocket.onclose = function () { console.log("WebSocket connection closed") };
+				  
+				function getCookie(name) {
+					var value = "; " + document.cookie;
+					var parts = value.split("; " + name + "=");
+					if (parts.length == 2) return parts.pop().split(";").shift();
+				}
+
+				function send(){
+					var sameQuery=0;
+					var text = document.getElementById("query").value;
+					if(text!=''){
+						console.log("sending text");
+						
+					
+						//window.alert("allQueries elements: "+allQueries+"  "+"tekst: "+text);
+						if (allQueries.indexOf(text) > -1){
+								sameQuery=1;
+								//window.alert("tu smo");
+								}
+						
+						if(sameQuery==0) webSocket.send(text);
+						else window.alert("Given query already exists");
+						document.getElementById("query").value='';
+					}
+				}
+
+				
+
+				function LogOut() {
+				  webSocket.close();				  
+				}
+				
+				
+
+				</script>	
+				</div>	
+					
+            </div>
+        </div>
+    </header>
+
+    <!--Ovo je original dolje
+
+	<div class="container">	
 		<p>Search for new tweets by given query</p>
 		<textarea id="query"></textarea>
 		<button id="submit" onclick="send()">Send</button>
@@ -45,135 +285,14 @@ p{
 			<ul id="list" class="list-group">
 
 			</ul>	
-		</div>
-		
+		</div>		
 	</div>
-	
+	-->
 </body>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script>
-	var list = document.getElementById("list");
-	var allQueries = [];//ideja je da se pamte upiti i svaki upit je ujedno i id za taj query 
-	var tvitovi=[];
 
-	var webSocket = new WebSocket("ws://" + location.hostname + ":4567/stream/");
-	webSocket.onopen = function () {
-		webSocket.send(getCookie("requestToken"));
-	};
-	webSocket.onmessage = function (msg) {
-	    
-		//window.alert("tu smo");
-		//var listElement = document.createElement("LI");
-		//listElement.className = "list-group-item";
-		//listElement.appendChild(document.createTextNode(msg.data));
-		//list.appendChild(listElement);
-		console.log(msg);
-		var data=JSON.parse(msg.data);
-		//window.alert(data[0].text);
-		//arr = [];
-		//var pridosliTvitovi=[];
-		
-		for(var event in data){
-			
-			//window.alert(event); // to je naziv upita
-			//provjeriti dali event već postoji u listi evenata
-			var remember = 0;
-			//window.alert(allQueries.length);
-			for(p=0;p<allQueries.length;p++){
-			  
-			  if(allQueries[p]==event) remember=1;
-			}
-		 if(remember==1) {
-				//window.alert("yeaaah");
-				//window.alert(tvitovi);
-				var dataCopy = data[event];
-				//window.alert(JSON.stringify(dataCopy));
-				var queryDiv=document.getElementById(event);
-				queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b style=\"color:yellow;\">"+event+"</b></br></br>";
-					
-				var i=0;
-				for(key in dataCopy){
-					//if(key=="text"){		
-					//window.alert(dataCopy[i].text);
-					var tvit=dataCopy[i].text;
-					tvitovi.push(tvit);
-					var autor=dataCopy[i].author;
-					var datum=dataCopy[i].date;
-					queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:yellow;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"  <b> Tweet:</b> &nbsp<b style=\"color:yellow;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
-					i=i+1;
-							 
-				}
-					
-				
-				//queryDiv.innerHTML=queryDiv.innerHTML+"Autor: "+autor+"  "+"Tweet: "+tvit+"   "+"Datum: "+datum+"</br>";
-				
-			}
-		 else{
-			allQueries.push(event);
-			document.getElementById("demo").innerHTML = "Svi upiti :"+allQueries;	
-			var dataCopy = data[event];
-			//window.alert(JSON.stringify(dataCopy));
-			//window.alert(dataCopy[0].text);
-			
-			var queryDiv = document.createElement('div');
-			queryDiv.id = event;
-			queryDiv.className = 'block';
-			document.getElementsByTagName('body')[0].appendChild(queryDiv);
-			queryDiv.innerHTML="Ovdje se prati tijek tvitova za upit <b style=\"color:yellow;\">"+event+"</b></br></br>";
-						
-			
-			var i=0;
-			for(key in dataCopy){
-			 //if(key=="text"){		
-				//window.alert(dataCopy[i].text);
-				var tvit=dataCopy[i].text;
-				tvitovi.push(tvit);
-				var autor=dataCopy[i].author;
-				var datum=dataCopy[i].date;
-				queryDiv.innerHTML=queryDiv.innerHTML+"<b>Autor:</b> <b style=\"color:yellow;\">"+autor+"</b>&nbsp&nbsp&nbsp&nbsp"+"<b>Tweet:</b> &nbsp<b style=\"color:yellow;\">"+tvit+"</b></br>";//+"      "+"   Datum: "+datum+"</br>";
-				i=i+1;
-							 
-			}
-		 }		
-			
-		}
-		
-	};
-	
-  webSocket.onclose = function () { alert("WebSocket connection closed") };
-
-function getCookie(name) {
-	var value = "; " + document.cookie;
-	var parts = value.split("; " + name + "=");
-	if (parts.length == 2) return parts.pop().split(";").shift();
-}
-
-function send(){
-	var sameQuery=0;
-	var text = document.getElementById("query").value;
-	if(text!=''){
-		console.log("sending text");
-		
-	
-		//window.alert("allQueries elements: "+allQueries+"  "+"tekst: "+text);
-		if (allQueries.indexOf(text) > -1){
-				sameQuery=1;
-				//window.alert("tu smo");
-				}
-		
-		if(sameQuery==0) webSocket.send(text);
-		else window.alert("Given query already exists");
-		document.getElementById("query").value='';
-	}
-}
-
-function OpenInNewTab() {
-  var win = window.open("query_stream.html", '_blank');
-  win.focus();
-}
-</script>
 
 
 </html>

@@ -34,10 +34,10 @@ public class Main {
         webSocket("/stream", StreamingWebSocket.class);
         webSocketIdleTimeoutMillis(Integer.MAX_VALUE);
         
-        get("/", (req, resp) -> {
+       /* get("/", (req, resp) -> {
         	resp.redirect("/auth");   //Javascript redirect in index.html somehow removes cookies
         	return null;
-        });
+        });*/
         
         // Permit JavaScript redirection
         before("/auth", (req, resp) -> resp.header("Access-Control-Allow-Origin", "*"));
