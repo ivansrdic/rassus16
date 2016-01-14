@@ -98,7 +98,7 @@ p{
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll" href="/">About</a>
                     </li> 
                      <li>
                         <a class="page-scroll" href="http://www.fer.unizg.hr/">FER.HR</a>
@@ -147,7 +147,7 @@ p{
 							'https://twitter.com/logout',
 							'_blank' 
 							);
-						location.href = "index.html";
+						location.href = "/";
 					};
 					
 					var webSocket = new WebSocket("ws://" + location.hostname + ":4567/stream/");
@@ -262,7 +262,8 @@ p{
 				
 
 				function LogOut() {
-				  webSocket.close();				  
+				  webSocket.close();
+				  document.cookie = 'requestToken=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';		  
 				}
 				
 				
